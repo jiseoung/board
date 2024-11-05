@@ -1,5 +1,7 @@
 const express = require('express');
+
 const user_login = require('../../services/user.service/login.service.js');
+const jwt = require('../../services/jwt.service.js');
 
 const router = express.Router();
 const app = express();
@@ -18,7 +20,11 @@ router.post('/login', (req, res) => {
     const login_result = user_login(id, pw);
 
     if (login_result) {
-        res.send('<script>alert("login success"); location.href="/";</script>');
+        const jwt_token = jwt.generate_jwt({'username':login_result[username], 'role':login_result[role]});
+
+        if (jwt_token) {
+            res.send('<script>alert("login success"); location.href="/";</script>');
+        }
     }
     else {
         res.send('<script>alert("login failed");</script>');
