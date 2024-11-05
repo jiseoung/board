@@ -1,4 +1,5 @@
 const express = require('express');
+const user_login = require('../../services/user.service/login.service.js');
 
 const router = express.Router();
 const app = express();
@@ -14,7 +15,9 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
     const { id, pw } = req.body;
 
-    if (result) {
+    const login_result = user_login(id, pw);
+
+    if (login_result) {
         res.send('<script>alert("login success"); location.href="/";</script>');
     }
     else {
