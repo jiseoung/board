@@ -24,6 +24,7 @@ router.post('/login', (req, res) => {
 
         if (jwt_token) {
             res.send('<script>alert("login success"); location.href="/";</script>');
+            
         }
     }
     else {
