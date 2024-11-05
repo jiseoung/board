@@ -18,7 +18,7 @@ router.post('/register', (req, res) => {
 
     var result = user_register(id, pw, username, email);
     if (result) {
-        res.send('<script>alert("register ok");</script>');
+        res.send('<script>alert("register ok");location.href = "/"</script>');
     }
 });
 
