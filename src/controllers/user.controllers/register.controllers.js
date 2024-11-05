@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const user_register = require('../../services/register.service.js');
+const user_register = require('../../services/user.service/register.service.js');
 
 const router = express.Router();
 const app = express();
@@ -18,7 +18,10 @@ router.post('/register', (req, res) => {
 
     var result = user_register(id, pw, username, email);
     if (result) {
-        res.send('<script>alert("register ok");location.href = "/"</script>');
+        res.send('<script>alert("register success");location.href = "/"</script>');
+    }
+    else {
+        res.send('<script>alert("register failed");</script>');
     }
 });
 
