@@ -13,10 +13,11 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
     var { id, pw, username, email } = req.body;
-
-    var result = user_register(id, pw, username, email);
+    
+    var result = await user_register(id, pw, username, email);
+    
     if (result) {
         res.send('<script>alert("register success");location.href = "/"</script>');
     }
