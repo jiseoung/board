@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 
 const user_login = require('../../services/user.service/login.service.js');
-const jwt = require('../../services/jwt.service.js');
 
 const router = express.Router();
 const app = express();
@@ -15,21 +14,22 @@ router.get('/login', (req, res) => {
     res.render('login');
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const { id, pw } = req.body;
 
-    const login_result = user_login(id, pw);
-
-    if (login_result) {
-        const jwt_token = jwt.generate_jwt({'username':login_result.username, 'role':login_result.role});
-
+    try {
+        const jwt_token = await user_login(id, pw);
+ 
         if (jwt_token) {
+            res.cookie('jwt_token', jwt_token, { httpOnly: true });
             res.send('<script>alert("login success"); location.href="/";</script>');
-            
         }
-    }
-    else {
-        res.send('<script>alert("login failed");</script>');
+        else {
+            res.send('<script>alert("login failed");</script>');
+        }
+        
+    } catch (e) {
+        console.log('/login error : ' + e);
     }
 })
 
