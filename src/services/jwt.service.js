@@ -1,15 +1,17 @@
 const jwt = require('jsonwebtoken');
 require("dotenv").config({ path: __dirname + "/src/config/.env" });
 
-exports.generate_jwt = async (payload) => {
-    const token = jwt.sign(payload, `${process.env.JWT_SERCRET_KEY}`, { algorithm: "HS256", expiresIn: '24h' });
-        
-    return token;
+exports.generate_jwt = (payload) => {
+    try {
+        return jwt.sign(payload, process.env.JWT_SECRET_KEY, { algorithm: "HS256", expiresIn: '24h' });
+    } catch (e) {
+        console.log('generate_jwt error : ' + e);
+    }
 };
 
-exports.verify_jwt = async (token) => {
+exports.verify_jwt = (token) => {
     try {
-        const data = jwt.decode(token, `${process.env.JWT_SERCRET_KEY}`);
+        const data = jwt.decode(token, process.env.JWT_SECRET_KEY);
 
         return data;
     } catch (e) {
