@@ -1,7 +1,9 @@
-const connection = require('../db_connect.service.js');
+const pool = require('../db_connect.service.js');
 const hash = require('../../middlewares/hash.middleware.js');
 
 const user_register = async (id, pw, username, email) => {
+    const connection = pool.getConnection(async conn => conn);
+
     try {
         const hashed_pw = await hash.create_hash(pw);
 
@@ -12,7 +14,9 @@ const user_register = async (id, pw, username, email) => {
 
         return result;
     } catch (e) {
-        console.log(e);
+        console.log('user_register error : ' + e);
+    } finally {
+        connection.release();
     }
 }
 
