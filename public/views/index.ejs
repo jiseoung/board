@@ -5,8 +5,20 @@
     </head>
     <body>
         <h1 align="center">Welcome To JS' Playground</h1>
+        <% if (username !== null) { %>
+            <h3 align="center">hi <%= username %></h3>
+        <% } %>
         <hr>
-        <button><a href="/user/register">register</a></button>
-        <button><a href="/user/login">login</a></button>
+        <% if (username !== null)  { %>
+            <button><a href="#">board</a></button>
+            <button><a href="#">info</a></button>
+            <button><a href="/user/logout">logout</a></button>
+            <% if (role === 1) { %>
+                <button><a href="#">admin</a></button>
+            <% } %>
+        <% } else { %>
+            <button><a href="/user/register">register</a></button>
+            <button><a href="/user/login">login</a></button>
+        <% } %>
     </body>
 </html>
