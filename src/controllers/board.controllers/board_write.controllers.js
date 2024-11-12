@@ -19,7 +19,7 @@ router.get('/write', async (req, res) => {
     const jwt_token = req.cookies.jwt_token;
     const username = await jwt.verify_jwt(jwt_token).username;
 
-    res.render('write', { 'username' : username });
+    res.render('board_write', { 'username' : username });
 });
 
 router.post('/write', upload.single('file'), async (req, res) => {
