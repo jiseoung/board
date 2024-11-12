@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Board</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <button><a href="/">home</a></button>
+        <button><a href="/board/write">write</a></button>
+        <button><a href="#">about</a></button>
+        <button><a href="/user/logout">logout</a></button>
+        <hr>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>날짜</th>
+                        <th>조회수</th>
+                        <th>좋아요</th>
+                        <th>싫어요</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% writes_list.forEach(function(write) { %>
+                    <tr>
+                        <td><%= write.title %></td>
+                        <td><%= write.username %></td>
+                        <td><%= write.date %></td>
+                        <td><%= write.view %></td>
+                        <td><%= write.good %></td>
+                        <td><%= write.bad %></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
