@@ -10,12 +10,12 @@
         <% } %>
         <hr>
         <% if (username !== null)  { %>
-            <button><a href="#">board</a></button>
-            <button><a href="#">info</a></button>
-            <button><a href="/user/logout">logout</a></button>
             <% if (role === 1) { %>
                 <button><a href="#">admin</a></button>
             <% } %>
+            <button><a href="/board/">board</a></button>
+            <button><a href="#">info</a></button>
+            <button><a href="/user/logout">logout</a></button>
         <% } else { %>
             <button><a href="/user/register">register</a></button>
             <button><a href="/user/login">login</a></button>
