@@ -11,7 +11,8 @@ const pool = mysql.createPool({
     user : mysql_username,
     password : mysql_password,
     database : mysql_db,
-    connectionLimit : 6
+    connectionLimit : 6,
+    dateStrings: 'date'
 });
 
 module.exports = pool;
