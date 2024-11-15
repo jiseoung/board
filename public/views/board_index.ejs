@@ -1,36 +1,61 @@
 <html>
     <head>
-        <title>Board</title>
+        <title>BOARD</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
-        <button><a href="/">home</a></button>
-        <button><a href="/board/write">write</a></button>
-        <button><a href="#">about</a></button>
-        <button><a href="/user/logout">logout</a></button>
+        <button><a href="/">Home</a></button>
+        <button><a href="/board/write">Write</a></button>
+        <button><a href="/user/info">Info</a></button>
+        <button><a href="/user/logout">Logout</a></button>
         <hr>
         <div>
             <table>
                 <thead>
                     <tr>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>날짜</th>
-                        <th>조회수</th>
-                        <th>좋아요</th>
-                        <th>싫어요</th>
+                        <th>Title</th>
+                        <th>Writer</th>
+                        <th>Date</th>
+                        <th>Views</th>
+                        <th>Good</th>
+                        <th>Bad</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% writes_list.forEach(function(write) { %>
-                    <tr>
-                        <td><%= write.title %></td>
-                        <td><%= write.username %></td>
-                        <td><%= write.date %></td>
-                        <td><%= write.view %></td>
-                        <td><%= write.good %></td>
-                        <td><%= write.bad %></td>
-                    </tr>
+                        <% if (write.role === 1) { %>
+                            <tr onclick="location.href='/board/show?page=<%= write.index %>'">
+                                <td><%= write.title %></td>
+                                <td><%= write.username %></td>
+                                <td><%= write.date %></td>
+                                <td><%= write.view %></td>
+                                <td><%= write.good %></td>
+                                <td><%= write.bad %></td>
+                                <td>(비밀글)</td>
+                            </tr>
+                        <% } else { %>
+                            <% if (write.username === logined) { %>
+                                <tr onclick="location.href='/board/show?page=<%= write.index %>'">
+                                    <td><%= write.title %></td>
+                                    <td><%= write.username %></td>
+                                    <td><%= write.date %></td>
+                                    <td><%= write.view %></td>
+                                    <td><%= write.good %></td>
+                                    <td><%= write.bad %></td>
+                                    <td>(비밀글)</td>
+                                </tr>
+                            <% } else { %>
+                                <tr onclick="location.href='/board/show?page=<%= write.index %>'">
+                                    <td></td>
+                                    <td><%= write.username %></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>(비밀글)</td>
+                                </tr>
+                            <% } %>
+                        <% } %>
                     <% }); %>
                 </tbody>
             </table>
