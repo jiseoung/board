@@ -25,4 +25,12 @@ router.get('/show', async (req, res) => {
     }
 });
 
+router.post('/show/download', (req, res) => {
+    const { file_name } = req.body;
+
+    const download_path = path.join(__dirname, '../../../uploads/' + file_name);
+
+    res.download(download_path);
+})
+
 module.exports = router;
