@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>JS' Playground</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <div>
+            <table>
+                <tr>
+                    <td><label for="id">id</label></td>
+                    <td><span name="id"><%= user[0].id %></span></td>
+                </tr>
+                <tr>
+                    <td><label for="username">username</label></td>
+                    <td><span name="username"><%= user[0].username %></span></td>
+                </tr>
+                <tr>
+                    <td><label for="email">email</label></td>
+                    <td><span name="email"><%= user[0].email %></span></td>
+                </tr>
+                <tr>
+                    <td><label for="role">role</label></td>
+                    <% if (user[0].role === 0) { %>
+                        <td><span name="role">common</span></td>
+                    <% } else if (user[0].role === 1) { %>
+                        <td><span name="role">admin</span></td>
+                    <% } %>
+                </tr>
+            </table>
+            <button>change pw</button>
+            <button>withdraw id</button>
+        </div>
+    </body>
+</html>
