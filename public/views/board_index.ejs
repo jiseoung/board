@@ -22,8 +22,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% writes_list.forEach(function(write) { %>
-                        <% if (write.role === 1) { %>
+                    <% writes_list.forEach(function (write) { %>
+                        <% if (user.role === 1) { %>
                             <tr onclick="location.href='/board/show?page=<%= write.index %>'">
                                 <td><%= write.title %></td>
                                 <td><%= write.username %></td>
@@ -34,7 +34,7 @@
                                 <td>(비밀글)</td>
                             </tr>
                         <% } else { %>
-                            <% if (write.username === logined) { %>
+                            <% if (writes_list.username === user.username) { %>
                                 <tr onclick="location.href='/board/show?page=<%= write.index %>'">
                                     <td><%= write.title %></td>
                                     <td><%= write.username %></td>
