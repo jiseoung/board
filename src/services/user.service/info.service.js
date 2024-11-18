@@ -1,5 +1,4 @@
 const pool = require('../db_connect.service');
-const jwt = require('../../services/jwt.service.js');
 
 exports.parse_user = async (username) => {
     const connection = await pool.getConnection(async conn => conn);
