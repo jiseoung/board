@@ -12,11 +12,11 @@ app.set('views', path.join(__dirname + '/public/views'));
 router.use(cookieParser());
 
 router.get('/', async (req, res) => {
-    const logined = jwt.verify_jwt(req.cookies.jwt_token).username;
+    const user = jwt.verify_jwt(req.cookies.jwt_token);
 
     const writes_list = await board_index.show_writes_list();
 
-    res.render('board_index', { 'writes_list' : writes_list, 'logined' : logined });
+    res.render('board_index', { 'writes_list' : writes_list, 'user' : user });
 });
 
 module.exports = router;
