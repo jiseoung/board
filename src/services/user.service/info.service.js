@@ -16,3 +16,18 @@ exports.parse_user = async (username) => {
         connection.release();
     }
 }
+
+exports.withdraw_user = async (username) => {
+    const connection = await pool.getConnection(async conn => conn);
+
+    try {
+        await connection.execute(
+            'DELETE FROM users WHERE username = ?',
+            [username]
+        );
+    } catch (e) {
+        console.log('withdraw_user error : ' + e);
+    } finally {
+        connection.release();
+    }
+}
