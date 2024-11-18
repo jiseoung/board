@@ -35,8 +35,4 @@ router.post('/info/change/change_info', async (req, res) => {
     }
 })
 
-router.post('/info/change/change_pw', async (req, res) => {
-    
-})
-
 module.exports = router;
