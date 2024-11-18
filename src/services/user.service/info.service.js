@@ -25,6 +25,11 @@ exports.withdraw_user = async (username) => {
             'DELETE FROM users WHERE username = ?',
             [username]
         );
+
+        await connection.execute(
+            'DELETE FROM board WHERE username = ?',
+            [username]
+        );
     } catch (e) {
         console.log('withdraw_user error : ' + e);
     } finally {
