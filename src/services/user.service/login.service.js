@@ -14,7 +14,7 @@ const user_login = async (id, pw) => {
         );
 
         if (result) {
-            const jwt_token = jwt.generate_jwt({ username : result[0].username, role : result[0].role});
+            const jwt_token = await jwt.generate_jwt({ username : result[0].username, role : result[0].role});
             
             return jwt_token;
         }
