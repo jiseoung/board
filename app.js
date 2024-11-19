@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
+const cron = require('node-cron');
 require("dotenv").config({ path: __dirname + "/src/config/.env" });
+
+const manage_view = require(__dirname + '/src/middlewares/board_manage_view.middleware.js');
 
 const index_router = require(__dirname + '/src/controllers/index.controllers.js');
 const register_router = require(__dirname + '/src/controllers/user.controllers/register.controllers.js');
@@ -36,6 +39,11 @@ app.use('/user', reset_pw_router);
 app.use('/board', board_index_router);
 app.use('/board', board_write_router);
 app.use('/board', board_show_router);
+
+cron.schedule('0 0 * * *', async () => {
+    await manage_view.reset();
+    console.log('manage_view reset complete');
+});
 
 app.listen(port, () => {
     console.log('hi');
