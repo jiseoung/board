@@ -10,6 +10,7 @@ const app = express();
 
 router.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.set('views', path.join(__dirname + '/public/views'));
 
 router.get('/info', async (req, res) => {
