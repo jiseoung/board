@@ -10,11 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set('views', path.join(__dirname + '/public/views'));
 
-router.get('/find_pw', (req, res) => {
-    res.render('find_pw');
+router.get('/reset_pw', (req, res) => {
+    res.render('reset_pw');
 })
 
-router.post('/find_pw', async (req, res) => {
+router.post('/reset_pw', async (req, res) => {
     const { id, username, email } = req.body;
 
     const result = await user_pw.reset_pw(id, username, email);
