@@ -2,8 +2,11 @@
     <head>
         <title>SHOW</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/public/css/good_bad.css">
     </head>
     <body>
+        <button><a href="/board">board</a></button>
+        <hr>
         <table>
             <tr>
                 <td><label for="title">title</label></td>
@@ -26,6 +29,17 @@
                 <td><span id="file_name" name="file_name"><%= write[0].file_name %></span>  <button id="file_download_btn" onclick='file_download()'>다운로드</button>
             </tr>
         </table>
+        <br>
+        <button id="good_btn">good</button>
+        <button id="bad_btn">bad</button>
+
+        <% if (good_and_bad === 'good') { %>
+            <script>document.getElementById('good_btn').style.backgroundColor = 'skyblue';</script>
+        <% } else if (good_and_bad === 'bad') { %>
+           <script>document.getElementById('bad_btn').style.backgroundColor = 'red';</script>
+        <% } %>
+
     </body>
     <script src="/public/js/download_file.js"></script>
+    <script src="/public/js/good_bad.js"></script>
 </html>
