@@ -1,0 +1,15 @@
+#good_btn {
+    background-color: white;
+}
+
+#bad_btn {
+    background-color: white;
+}
+
+#good_btn.active {
+    background-color: skyblue;
+}
+
+#bad_btn.active {
+    background-color: red;
+}
