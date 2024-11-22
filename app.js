@@ -19,6 +19,7 @@ const board_write_router = require(__dirname + '/src/controllers/board.controlle
 const board_show_router = require(__dirname + '/src/controllers/board.controllers/board_show.controllers.js');
 
 const admin_index_router = require(__dirname + '/src/controllers/admin.controllers/admin_index.controllers.js');
+const admin_manage_users_router = require(__dirname + '/src/controllers/admin.controllers/admin_manage_users.controllers.js');
 
 const app = express();
 const port = process.env.PORT;
@@ -43,6 +44,7 @@ app.use('/board', board_index_router);
 app.use('/board', board_write_router);
 app.use('/board', board_show_router);
 app.use('/admin', admin_index_router);
+app.use('/admin', admin_manage_users_router);
 
 cron.schedule('0 0 * * *', async () => {
     await manage_view.reset();
