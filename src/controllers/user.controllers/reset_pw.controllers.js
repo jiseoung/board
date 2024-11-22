@@ -23,7 +23,7 @@ router.post('/reset_pw', async (req, res) => {
         res.send('<script>alert("ID, username and email do not match");location.href="/user/reset_pw";</script>');
     }
     else if (result === 'reset_complete') {
-        res.send('<script>alert("Password reset email has been sent.");location.href="/user/login";</script>');
+        res.clearCookie('jwt_token').send('<script>alert("Password reset email has been sent. Login Again");location.href="/user/login";</script>');
     }
 })
 
