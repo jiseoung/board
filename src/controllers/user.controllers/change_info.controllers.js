@@ -28,11 +28,9 @@ router.post('/info/change/change_info', async (req, res) => {
     const before_username = await jwt.verify_jwt(jwt_token).username;
     const { id, username, email } = req.body;
 
-    const changed_jwt_token = await change_user.change_info(id, username, email, before_username);
-    if (changed_jwt_token) {
-        res.cookie('jwt_token', changed_jwt_token, { httpOnly: true });
-        res.send('<script>alert("change succeeded");location.href="/user/info";</script>')
-    }
+    await change_user.change_info(id, username, email, before_username);
+
+    res.send('<script>alert("change complete. Login Again");location.href="/user/login";</script>');
 })
 
 module.exports = router;
