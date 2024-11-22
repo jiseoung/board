@@ -1,6 +1,6 @@
 const report_btn = document.getElementById('report_btn');
 //url query 가져오는 것은 이미 다른 js파일에 정의되어서 다시 정의할 필요 없음
-const report_url = "/board/show";
+const report_url = "/board/show/report";
 
 report_btn.addEventListener('click', () => {
     if(confirm("Would you like to report this post?")) {
