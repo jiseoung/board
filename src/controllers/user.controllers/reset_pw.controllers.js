@@ -19,7 +19,10 @@ router.post('/reset_pw', async (req, res) => {
 
     const result = await user_pw.reset_pw(id, username, email);
 
-    if (result === 'reset_complete') {
+    if (result === 'error') {
+        res.send('<script>alert("ID, username and email do not match");location.href="/user/reset_pw";</script>');
+    }
+    else if (result === 'reset_complete') {
         res.send('<script>alert("Password reset email has been sent.");location.href="/user/login";</script>');
     }
 })
