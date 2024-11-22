@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>REPORTED WRITES</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <button><a href="/admin/">admin</a></button>
+        <hr>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Writer</th>
+                        <th>Date</th>
+                        <th>Views</th>
+                        <th>Good</th>
+                        <th>Bad</th>
+                        <th>Reported</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% reported_writes_list.forEach( function (write) { %>
+                        <tr onclick="location.href='/board/show?page=<%= write.index %>'">
+                            <td><%= write.title %></td>
+                            <td><%= write.username %></td>
+                            <td><%= write.date %></td>
+                            <td><%= write.view %></td>
+                            <td><%= write.good %></td>
+                            <td><%= write.bad %></td>
+                            <td><%= write.report %></td>
+                            <td>(비밀글)</td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
