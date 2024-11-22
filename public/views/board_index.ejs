@@ -23,18 +23,8 @@
                 </thead>
                 <tbody>
                     <% writes_list.forEach(function (write) { %>
-                        <% if (user.role === 1) { %>
-                            <tr onclick="location.href='/board/show?page=<%= write.index %>'">
-                                <td><%= write.title %></td>
-                                <td><%= write.username %></td>
-                                <td><%= write.date %></td>
-                                <td><%= write.view %></td>
-                                <td><%= write.good %></td>
-                                <td><%= write.bad %></td>
-                                <td>(비밀글)</td>
-                            </tr>
-                        <% } else { %>
-                            <% if (writes_list.username === user.username) { %>
+                        <% if (write.secret === 1) { %>
+                            <% if (user.role === 1) { %>
                                 <tr onclick="location.href='/board/show?page=<%= write.index %>'">
                                     <td><%= write.title %></td>
                                     <td><%= write.username %></td>
@@ -45,16 +35,37 @@
                                     <td>(비밀글)</td>
                                 </tr>
                             <% } else { %>
-                                <tr>
-                                    <td></td>
-                                    <td><%= write.username %></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>비밀글</td>
-                                </tr>
+                                <% if (write.username === user.username) { %>
+                                    <tr onclick="location.href='/board/show?page=<%= write.index %>'">
+                                        <td><%= write.title %></td>
+                                        <td><%= write.username %></td>
+                                        <td><%= write.date %></td>
+                                        <td><%= write.view %></td>
+                                        <td><%= write.good %></td>
+                                        <td><%= write.bad %></td>
+                                        <td>(비밀글)</td>
+                                    </tr>
+                                <% } else { %>
+                                    <tr>
+                                        <td></td>
+                                        <td><%= write.username %></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>비밀글</td>
+                                    </tr>
+                                <% } %>
                             <% } %>
+                        <% } else { %>
+                            <tr onclick="location.href='/board/show?page=<%= write.index %>'">
+                                <td><%= write.title %></td>
+                                <td><%= write.username %></td>
+                                <td><%= write.date %></td>
+                                <td><%= write.view %></td>
+                                <td><%= write.good %></td>
+                                <td><%= write.bad %></td>
+                            </tr>
                         <% } %>
                     <% }); %>
                 </tbody>
