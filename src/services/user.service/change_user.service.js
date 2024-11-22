@@ -18,16 +18,15 @@ exports.change_info = async (id, username, email, before_username) => {
             [username, before_username]
         );
 
-        const [user] = await connection.execute(
-            'SELECT * FROM users WHERE id = ?',
-            [id]
-        )
+        await connection.execute(
+            'UPDATE good_bad SET username = ? WHERE username = ?',
+            [username, before_username]
+        );
 
-        if (user) {
-            const jwt_token = await jwt.generate_jwt({ username : user[0].username, role : user[0].role});
-
-            return jwt_token;
-        }
+        await connection.execute(
+            'UPDATE manage_view SET username = ? WHERE username = ?',
+            [username, before_username]
+        );
     } catch (e) {
         console.log('change_info error : ' + e);
     } finally {
