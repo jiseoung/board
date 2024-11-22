@@ -24,6 +24,11 @@ exports.delete_user = async (username) => {
             'DELETE FROM users WHERE username = ?',
             [username]
         );
+
+        await connection.execute(
+            'DELETE FROM board WHERE username = ?',
+            [username]
+        )
     } catch (e) {
         console.log('admin delete user error : ' + e); 
     } finally {
