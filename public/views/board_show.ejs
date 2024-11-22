@@ -24,10 +24,12 @@
                 <td><label for="content">content</label></td>
                 <td><span name="content"><%= write[0].content %></span></td>
             </tr>
+            <% if (write[0].file_name) { %>
             <tr>
                 <td><label for="file">file</label></td>
                 <td><span id="file_name" name="file_name"><%= write[0].file_name %></span>  <button id="file_download_btn" onclick='file_download()'>다운로드</button>
             </tr>
+            <% } %>
         </table>
         <br>
         <button id="good_btn">good</button>
