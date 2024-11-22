@@ -41,7 +41,7 @@ router.get('/show', async (req, res) => {
     }
 });
 
-router.post('/show', async (req, res) => {
+router.post('/show/report', async (req, res) => {
     const { page } = req.body;
 
     try {
