@@ -22,11 +22,12 @@
                             <td><%= user.id %></td>
                             <td><%= user.username %></td>
                             <td><%= user.email %></td>
-                            <td><button id="user_delete">delete</button></td>
+                            <td><button id="delete_user" value="<%= user.username %>">delete</button></td>
                         </tr>
                     <% }); %>
                 </tbody>
             </table>
         </div>
     </body>
+    <script src="/public/js/admin_delete_user.js"></script>
 </html>
