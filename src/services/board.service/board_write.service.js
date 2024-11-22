@@ -24,15 +24,6 @@ exports.write = async (username, title, content, file_name, secret) => {
     }
 }
 
-exports.secret_check = (secret) => {
-    if (secret === 'secret') {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
-
 exports.file_setting = multer({
     storage: multer.diskStorage({
         destination (req, file, done) {
@@ -47,3 +38,21 @@ exports.file_setting = multer({
     }),
     limits: { fieldSize: 5 * 1024 * 1024 },
 });
+
+exports.secret_check = (secret) => {
+    if (secret === 'secret') {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+};
+
+exports.file_check = (file) => {
+    if (file === undefined) {
+        return null;
+    }
+    else {
+        return file.originalname;
+    }
+}
