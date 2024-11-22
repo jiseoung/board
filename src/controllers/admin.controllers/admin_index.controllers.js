@@ -3,7 +3,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 
 const check_admin = require('../../middlewares/check_admin.middleware.js');
-const jwt = require('../../services/jwt.service.js');
 
 const router = express.Router();
 const app = express();
