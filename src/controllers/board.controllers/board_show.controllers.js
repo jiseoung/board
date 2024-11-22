@@ -6,6 +6,7 @@ const board_show = require('../../services/board.service/board_show.service.js')
 const jwt = require('../../services/jwt.service.js');
 const manage_view = require('../../middlewares/board_manage_view.middleware.js');
 const Good_Bad = require('../../services/board.service/board_good_bad.service.js');
+const board_report = require('../../services/board.service/board_report.service.js');
 
 const router = express.Router();
 const app = express();
@@ -39,6 +40,19 @@ router.get('/show', async (req, res) => {
         console.log('/show error' + e);
     }
 });
+
+router.post('/show', async (req, res) => {
+    const { page } = req.body;
+
+    try {
+        await board_report.report(page);
+
+        res.send('ok');
+    } catch (e) {
+        console.log('post /show error : '+ e);
+    }
+    
+})
 
 router.put('/show/good_bad', async (req, res) => {
     const { page, click } = req.body;
