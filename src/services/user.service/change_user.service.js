@@ -1,5 +1,4 @@
 const pool = require('../db_connect.service.js');
-const jwt = require('../jwt.service.js');
 
 const hash = require('../../middlewares/hash.middleware.js');
 const match_pw = require('../../middlewares/match_pw.middleware.js');
