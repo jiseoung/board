@@ -28,7 +28,7 @@ router.post('/write', upload.single('file'), async (req, res) => {
     const jwt_token = req.cookies.jwt_token;
     const username = await jwt.verify_jwt(jwt_token).username;
 
-    const file_name = req.file.originalname;
+    const file_name = await board_write.file_check(req.file);
     const secret_check = await board_write.secret_check(secret);
 
     try {
