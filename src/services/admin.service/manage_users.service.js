@@ -15,3 +15,18 @@ exports.user_list = async () => {
         connection.release();
     }
 }
+
+exports.delete_user = async (username) => {
+    const connection = await pool.getConnection(async conn => conn);
+
+    try {
+        await connection.execute(
+            'DELETE FROM users WHERE username = ?',
+            [username]
+        );
+    } catch (e) {
+        console.log('admin delete user error : ' + e); 
+    } finally {
+        connection.release();
+    }
+}
