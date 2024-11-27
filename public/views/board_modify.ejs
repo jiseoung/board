@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>BOARD MODIFY</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/public/css/board_modify.css">
+    </head>
+    <body>
+        <div>
+            <form method="POST" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td><label for="title">title</label></td>
+                        <td><input type="text" name="title" value="<%= write[0].title %>"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="username">writer</label></td>
+                        <td><span name="username"><%= write[0].username %></span></td>
+                    </tr>
+                    <tr>
+                        <td><label for="date">date</label></td>
+                        <td><span name="date"><%= write[0].date %></span></td>
+                    </tr>
+                    <tr>
+                        <td><label for="content">content</label></td>
+                        <td><textarea name="content"><%= write[0].content %></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><label for="file">file</label></td>
+                        <td>
+                            <label for="file" class="file_label" id="file_label" data-original-name="<%= write[0].file_name %>"><%= write[0].file_name %></label>
+                            <input type="file" id="file" name="file">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="secret">secret</label></td>
+                        <td><input type="checkbox" name="secret" value="secret" <%= write[0].secret === 1 ? 'checked' : '' %>></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit">submit</button></td>
+                        <td><button type="button" onclick="history.go(-1)">cancel</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+    <script src="/public/js/board_modify.js"></script>
+</html>
