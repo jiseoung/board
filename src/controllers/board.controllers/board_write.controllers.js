@@ -36,7 +36,7 @@ router.post('/write', upload.single('file'), async (req, res) => {
         const write = await board_write.write(username, title, content, file_name, secret_check);
 
         if (write) {
-            res.send('<script>alert("write complete"); location.href = "/board/";</script>');
+            res.send('<script>alert("write complete"); location.href = "/board/?page_index=1";</script>');
         }
     } catch (e) {
         console.log('/write error : ' + e);
