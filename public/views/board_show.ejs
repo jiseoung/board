@@ -34,7 +34,7 @@
         <br>
         <% if (username === write[0].username || write[0].role === 1) { %>
             <button><a href="/board/modify?page=<%= write[0].index %>">modify</a></button>
-            <button><a href="#">delete</a></button>
+            <button id="write_delete_btn">delete</button>
             <br>
         <% } %>
         <br>
@@ -52,4 +52,5 @@
     <script src="/public/js/download_file.js"></script>
     <script src="/public/js/good_bad.js"></script>
     <script src="/public/js/report.js"></script>
+    <script src="/public/js/write_delete.js"></script>
 </html>
