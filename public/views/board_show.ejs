@@ -32,6 +32,12 @@
             <% } %>
         </table>
         <br>
+        <% if (username === write[0].username || write[0].role === 1) { %>
+            <button><a href="/board/modify?page=<%= write[0].index %>">modify</a></button>
+            <button><a href="#">delete</a></button>
+            <br>
+        <% } %>
+        <br>
         <button id="good_btn">good</button>
         <button id="bad_btn">bad</button>
         <button id="report_btn">report</button>
