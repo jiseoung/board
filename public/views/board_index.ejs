@@ -2,6 +2,7 @@
     <head>
         <title>BOARD</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/public/css/board_index.css">
     </head>
     <body>
         <button><a href="/">Home</a></button>
@@ -70,6 +71,19 @@
                     <% }); %>
                 </tbody>
             </table>
+        </div>
+        <br>
+        <div>
+            <ul class="pagination">
+                <% for (var i = 1; i<= total_page; i++) { %>
+                    <li>
+                        <a href="/board/?page_index=<%= i %>"><%= i %></a>
+                    </li>
+                    <% if (i % 10 === 0) { %>
+                        <br>
+                    <% } %>
+                <% } %>
+            </ul>
         </div>
     </body>
 </html>
