@@ -1,5 +1,4 @@
 const express = require("express");
-const multer = require("multer");
 const path = require("path");
 
 const app = express();
@@ -23,21 +22,6 @@ exports.write = async (username, title, content, file_name, secret) => {
         connection.release();
     }
 }
-
-exports.file_setting = multer({
-    storage: multer.diskStorage({
-        destination (req, file, done) {
-            done(null, "uploads/");
-        },
-        filename (req, file, done) {
-            file.originalname = Buffer.from(file.originalname, "latin1").toString("utf8");
-            const ext = path.extname(file.originalname);
-
-            done(null, path.basename(file.originalname, ext) + ext);
-        },
-    }),
-    limits: { fieldSize: 5 * 1024 * 1024 },
-});
 
 exports.secret_check = (secret) => {
     if (secret === 'secret') {
