@@ -34,7 +34,7 @@ router.get('/show', async (req, res) => {
         const show_write_result = await board_show.show_write(page);
 
         if (show_write_result) {
-            res.render('board_show', { 'write' : show_write_result, 'good_and_bad' : check_good_and_bad });
+            res.render('board_show', { 'write' : show_write_result, 'username' : username, 'good_and_bad' : check_good_and_bad });
         }
     } catch (e) {
         console.log('/show error' + e);
