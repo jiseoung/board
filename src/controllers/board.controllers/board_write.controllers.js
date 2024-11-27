@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 
 const jwt = require('../../services/jwt.service.js');
 const board_write = require('../../services/board.service/board_write.service.js');
+const board_file = require('../../services/board.service/board_file.service.js');
 
 const router = express.Router();
 const app = express();
@@ -13,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.set('views', path.join(__dirname + '/public/views'));
 router.use(cookieParser());
 
-const upload = board_write.file_setting;
+const upload = board_file.file_setting;
 
 router.get('/write', async (req, res) => {
     const jwt_token = req.cookies.jwt_token;
