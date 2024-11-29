@@ -18,6 +18,11 @@ exports.change_info = async (id, username, email, before_username) => {
         );
 
         await connection.execute(
+            'UPDATE comment SET username = ? WHERE username = ?',
+            [username, before_username]
+        )
+
+        await connection.execute(
             'UPDATE good_bad SET username = ? WHERE username = ?',
             [username, before_username]
         );
