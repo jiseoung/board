@@ -7,6 +7,7 @@ const jwt = require('../../services/jwt.service.js');
 const manage_view = require('../../middlewares/board_manage_view.middleware.js');
 const Good_Bad = require('../../services/board.service/board_good_bad.service.js');
 const board_report = require('../../services/board.service/board_report.service.js');
+const board_comment = require('../../services/board.service/board_comment.service.js');
 
 const router = express.Router();
 const app = express();
@@ -19,7 +20,8 @@ router.use(cookieParser());
 router.get('/show', async (req, res) => {
     const { page } = req.query;
     const jwt_token = req.cookies.jwt_token;
-    const username = await jwt.verify_jwt(jwt_token).username;
+    const { username, role } = await jwt.verify_jwt(jwt_token);
+    
 
     const is_viewed = await manage_view.viewed_before(page, username);
 
@@ -32,9 +34,18 @@ router.get('/show', async (req, res) => {
 
     try {
         const show_write_result = await board_show.show_write(page);
+        const show_comment_result = await board_comment.show_comment(page);
 
         if (show_write_result) {
-            res.render('board_show', { 'write' : show_write_result, 'username' : username, 'good_and_bad' : check_good_and_bad });
+            res.render('board_show', 
+                { 
+                    'write' : show_write_result, 
+                    'username' : username,
+                    'role' : role, 
+                    'good_and_bad' : check_good_and_bad,
+                    'comment' : show_comment_result
+                 }
+            );
         }
     } catch (e) {
         console.log('/show error' + e);
