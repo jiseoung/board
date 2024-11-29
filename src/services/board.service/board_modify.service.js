@@ -22,8 +22,8 @@ exports.modify = async (page, title, content, file_name, secret) => {
 
     try {
         await connection.execute(
-            'UPDATE board set title = ?, content = ?, file_name = ?, secret = ? WHERE `index` = ?',
-            [title, content, file_name, secret, page]
+            'UPDATE board set title = ?, content = ?, file_name = ?, date = NOW(), secret = ?, modify = ? WHERE `index` = ?',
+            [title, content, file_name, secret, 1, page]
         );
     } catch (e) {
         console.log('board modify error : ' + e);
