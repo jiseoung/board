@@ -19,6 +19,7 @@ const board_write_router = require(__dirname + '/src/controllers/board.controlle
 const board_show_router = require(__dirname + '/src/controllers/board.controllers/board_show.controllers.js');
 const board_modify_router = require(__dirname + '/src/controllers/board.controllers/board_modify.controllers.js');
 const board_delete_router = require(__dirname + '/src/controllers/board.controllers/board_delete.controllers.js');
+const board_comment_router = require(__dirname + '/src/controllers/board.controllers/board_comment.controllers.js');
 
 const admin_index_router = require(__dirname + '/src/controllers/admin.controllers/admin_index.controllers.js');
 const admin_manage_users_router = require(__dirname + '/src/controllers/admin.controllers/admin_manage_users.controllers.js');
@@ -50,6 +51,7 @@ app.use('/board', board_write_router);
 app.use('/board', board_show_router);
 app.use('/board', board_modify_router);
 app.use('/board', board_delete_router);
+app.use('/board', board_comment_router);
 
 app.use('/admin', admin_index_router);
 app.use('/admin', admin_manage_users_router);
