@@ -20,7 +20,7 @@ report_btn.addEventListener('click', () => {
             alert('report completed');
         })
         .catch(e => {
-            console.log('good btn error : ' + e);
+            console.log('report error : ' + e);
         })
     }
 })
