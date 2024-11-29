@@ -33,7 +33,10 @@
                                     <td><%= write.view %></td>
                                     <td><%= write.good %></td>
                                     <td><%= write.bad %></td>
-                                    <td>(비밀글)</td>
+                                    <% if (write.modify === 1) { %>
+                                        <td>(modified)</td> 
+                                    <% } %>
+                                    <td>(secret)</td>
                                 </tr>
                             <% } else { %>
                                 <% if (write.username === user.username) { %>
@@ -44,7 +47,10 @@
                                         <td><%= write.view %></td>
                                         <td><%= write.good %></td>
                                         <td><%= write.bad %></td>
-                                        <td>(비밀글)</td>
+                                        <% if (write.modify === 1) { %>
+                                            <td>(modified)</td> 
+                                        <% } %>
+                                        <td>(secret)</td>
                                     </tr>
                                 <% } else { %>
                                     <tr>
@@ -66,6 +72,9 @@
                                 <td><%= write.view %></td>
                                 <td><%= write.good %></td>
                                 <td><%= write.bad %></td>
+                                <% if (write.modify === 1) { %>
+                                    <td>(modified)</td> 
+                                <% } %>
                             </tr>
                         <% } %>
                     <% }); %>
