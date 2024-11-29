@@ -3,9 +3,11 @@
         <title>SHOW</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="/public/css/good_bad.css">
+        <link rel="stylesheet" href="/public/css/board_reply.css">
+        <link rel="stylesheet" href="/public/css/board_show.css">
     </head>
     <body>
-        <button><a href="/board">board</a></button>
+        <button><a href="/board?page_index=1">board</a></button>
         <hr>
         <table>
             <tr>
@@ -18,7 +20,12 @@
             </tr>
             <tr>
                 <td><label for="date">date</label></td>
-                <td><span name="date"><%= write[0].date %></span></td>
+                <td>
+                    <span name="date"><%= write[0].date %></span>
+                    <% if (write[0].modify === 1) { %>
+                        <span name="is_modified">(modified)</span> 
+                    <% } %>
+                </td>
             </tr>
             <tr>
                 <td><label for="content">content</label></td>
@@ -32,7 +39,7 @@
             <% } %>
         </table>
         <br>
-        <% if (username === write[0].username || write[0].role === 1) { %>
+        <% if (username === write[0].username || role === 1) { %>
             <button><a href="/board/modify?page=<%= write[0].index %>">modify</a></button>
             <button id="write_delete_btn">delete</button>
             <br>
@@ -47,10 +54,81 @@
         <% } else if (good_and_bad === 'bad') { %>
            <script>document.getElementById('bad_btn').style.backgroundColor = 'red';</script>
         <% } %>
+        <br>
+        <br>
 
+        <div>
+            <form method="POST" action="/board/show/comment">
+                <textarea name="comment"></textarea>
+                <input type="checkbox" name="secret" value="secret"/>secret
+                <input type="hidden" name="page" value="<%= write[0].index %>"/>
+                <button type="submit">comment</button>
+            </form>
+        </div>
+
+        <div>
+            <% comment.forEach(function (comment) { %>
+                <% if (username === comment.username || role === 1) { %>
+                    <div style="margin-left: <%= comment.depth * 30 %>px;">
+                        <div>
+                            <span><%= comment.username %></span>
+                            <span><%= comment.date %></span>
+                        </div>
+                        <div class="comment_content">
+                            <span><%= comment.content %></span>
+                            <% if (comment.edit === 1) { %>
+                                <span>(edited)</span>
+                            <% } %>
+                            <% if (comment.secret === 1) { %>
+                                <span>(secret)</span>
+                            <% } %>
+                        </div>
+                        <div class="comment_edit_form comment_edit_toggle">
+                            <form method="POST" action="/board/show/comment/edit">
+                                <textarea name="comment_edit"></textarea>
+                                <input type="checkbox" name="secret" value="secret"/>secret
+                                <input type="hidden" name="page" value="<%= comment.board_index %>"/>
+                                <input type="hidden" name="com_index" value="<%= comment.com_index %>"/>
+                                <button type="submit">submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="margin-left: <%= comment.depth * 30 %>px;">
+                        <button class="reply_btn">reply</button>
+                        <% if (comment.username === username) { %>
+                            <button class="comment_edit_btn">edit</button>
+                            <button class="comment_delete_btn" value="<%= comment.com_index %>">delete</button>
+                        <% } %>
+                    </div>
+                    <div class="reply_div" style="margin-left: <%= comment.depth * 30 %>px;">
+                        <form method="POST" action="/board/show/reply" class="reply_toggle reply_form" id="reply_form">
+                            <textarea name="reply"></textarea>
+                            <input type="checkbox" name="secret" value="secret"/>secret
+                            <input type="hidden" name="page" value="<%= write[0].index %>"/>
+                            <input type="hidden" name="parent_index" value="<%= comment.com_index %>"/>
+                            <button type="submit">reply</button>
+                        </form>
+                    </div>
+                    <br>
+                <% } else { %>
+                    <div style="margin-left: <%= comment.depth * 30 %>px;">
+                        <div>
+                            <span><%= comment.username %></span>
+                            <span><%= comment.date %></span>
+                        </div>
+                        <div>
+                            <span>secret</span>
+                        </div>
+                    </div>
+                <% } %>
+            <% }); %>
+        </div>
     </body>
     <script src="/public/js/download_file.js"></script>
     <script src="/public/js/good_bad.js"></script>
     <script src="/public/js/report.js"></script>
     <script src="/public/js/write_delete.js"></script>
+    <script src="/public/js/board_reply.js"></script>
+    <script src="/public/js/board_comment_edit.js"></script>
+    <script src="/public/js/board_comment_delete.js"></script>
 </html>
