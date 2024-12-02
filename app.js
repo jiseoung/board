@@ -21,7 +21,6 @@ app.set('views', path.join(__dirname, '/public/views'));
 app.use("/public/js", express.static(path.join(__dirname + "/public/js" )));
 app.use("/public/css", express.static(path.join(__dirname + "/public/css" )));
 
-
 app.use(index_router);
 app.use(admin_router);
 app.use(user_router);
