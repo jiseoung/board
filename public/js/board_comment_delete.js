@@ -15,16 +15,19 @@ comment_delete_btn.forEach((btn) => {
                     com_index: com_index
                 })
             })
-            .then(response => {
-                if (!response.ok) {
-                    console.log(response.status);
+            .then(async (response) => {
+                if (response.ok) {
+                    alert('Delete completed!');
+                    location.href = "/board/show?page=" + page;
+                } else {
+                    alert('Fail');
+                    location.href = "/board/show?page=" + page;
                 }
-                alert('delete completed');
-                location.href="/board/show?page=" + page;
             })
             .catch(e => {
-                console.log('comment delete error : ' + e);
-            })
+                console.log('Comment delete error: ' + e);
+                alert('error');
+            });
         }
     })
 })
