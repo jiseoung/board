@@ -2,6 +2,7 @@
     <head>
         <title>REPORTED WRITES</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/public/css/admin_reported_writes.css">
     </head>
     <body>
         <button><a href="/admin/">admin</a></button>
@@ -21,15 +22,25 @@
                 </thead>
                 <tbody>
                     <% reported_writes_list.forEach( function (write) { %>
-                        <tr onclick="location.href='/board/show?page=<%= write.index %>'">
-                            <td><%= write.title %></td>
-                            <td><%= write.username %></td>
+                        <tr class="write" onclick="location.href='/board/show?page=<%= write.index %>'">
+                            <% if (write.title.length > 5) { %>
+                                <td><%= write.title.substring(0, 5) + '...' %></td>
+                            <% } else { %>
+                                <td><%= write.title %></td>
+                            <% } %>
+                            <% if (write.username.length > 5) { %>
+                                <td><%= write.username.substring(0, 5) + '...' %></td>
+                            <% } else { %>
+                                <td><%= write.username %></td>
+                            <% } %>
                             <td><%= write.date %></td>
                             <td><%= write.view %></td>
                             <td><%= write.good %></td>
                             <td><%= write.bad %></td>
                             <td><%= write.report %></td>
-                            <td>(비밀글)</td>
+                            <% if (write.secret === 1) { %>
+                                <td>(비밀글)</td>
+                            <% } %>
                         </tr>
                     <% }); %>
                 </tbody>
