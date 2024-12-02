@@ -32,6 +32,7 @@ router.post('/modify', upload.single('file'), async (req, res) => {
         res.send('<script>alert("modify complete"); location.href="/board/show?page='+page+'"</script>');
     } catch (e) {
         console.log('/modify post error : ' + e);
+        res.render(400);
     }
 })
 

@@ -32,6 +32,7 @@ router.post('/show/reply', async (req, res) => {
         res.send('<script>location.href="/board/show?page=' + page + '"</script>');
     } catch (e) {
         console.log("/show/reply error : " + e);
+        res.render(400);
     }
 })
 
@@ -43,6 +44,7 @@ router.post('/show/comment/edit', async (req, res) => {
         await board_comment.edit_comment(com_index, comment_edit, secret_check);
     } catch (e) {
         console.log('/show/comment error : ' + e);
+        res.render(400);
     }
 
     res.send('<script>location.href="/board/show?page=' + page + '"</script>');
@@ -55,6 +57,7 @@ router.delete('/show/comment', async (req, res) => {
         await board_comment.delete_comment(com_index);
     } catch (e) {
         console.log('delete /show/comment error : ' + e);
+        res.render(400);
     }
 
     res.send('ok');

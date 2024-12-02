@@ -49,6 +49,7 @@ router.get('/show', async (req, res) => {
         }
     } catch (e) {
         console.log('/show error' + e);
+        res.render(400);
     }
 });
 
@@ -61,6 +62,7 @@ router.post('/show/report', async (req, res) => {
         res.send('ok');
     } catch (e) {
         console.log('post /show error : '+ e);
+        res.render(400);
     }
     
 })
@@ -76,6 +78,7 @@ router.put('/show/good_bad', async (req, res) => {
         await good_and_bad.click_reflection(click);
     } catch (e) {
         console.log('/show/good_bad error : ' + e);
+        res.render(400);
     }
 
     res.send("ok");
