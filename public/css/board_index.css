@@ -23,3 +23,12 @@
     background-color: #ff5722; 
     color: #fff; 
 }
+
+.write {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.write:hover {
+    background-color: #F7CAC9;
+}
