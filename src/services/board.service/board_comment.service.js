@@ -95,14 +95,27 @@ exports.show_comment = async (page) => {
     }
 }
 
-exports.edit_comment = async (com_index, content, secret) => {
+exports.edit_comment = async (jwt_username, role, com_index, content, secret) => {
     const connection = await pool.getConnection(async conn => conn);
 
     try {
-        await connection.execute(
-            'UPDATE comment SET content = ?, date = NOW(), secret = ?, edit = ? WHERE com_index = ?',
-            [content, secret, 1, com_index]
+        const [[{ 'username': comment_username }]] = await connection.execute(
+            'SELECT username FROM comment WHERE com_index = ?',
+            [com_index]
         )
+
+        if (jwt_username === comment_username || role === 1) {
+            await connection.execute(
+                'UPDATE comment SET content = ?, date = NOW(), secret = ?, edit = ? WHERE com_index = ?',
+                [content, secret, 1, com_index]
+            )
+
+            return 'succeed';
+        }
+        else {
+            return 'fail';
+        }
+
     } catch (e) {
         console.log('edit comment error : ' + e);
     } finally {
@@ -110,14 +123,27 @@ exports.edit_comment = async (com_index, content, secret) => {
     }
 }
 
-exports.delete_comment = async (com_index) => {
+exports.delete_comment = async (jwt_username, role, com_index) => {
     const connection = await pool.getConnection(async conn => conn);
 
     try {
-        await connection.execute(
-            'DELETE FROM comment WHERE com_index = ?',
+        const [[{ 'username': comment_username }]] = await connection.execute(
+            'SELECT username FROM comment WHERE com_index = ?',
             [com_index]
         )
+
+        if (jwt_username === comment_username || role === 1) {
+            await connection.execute(
+                'DELETE FROM comment WHERE com_index = ?',
+                [com_index]
+            )
+
+            return 'succeed';
+        }
+        else {
+            return 'fail';
+        }
+
     } catch (e) {
         console.log('delete comment error : ' + e);
     } finally {
