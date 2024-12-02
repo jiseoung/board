@@ -26,9 +26,17 @@
                     <% writes_list.forEach(function (write) { %>
                         <% if (write.secret === 1) { %>
                             <% if (user.role === 1) { %>
-                                <tr onclick="location.href='/board/show?page=<%= write.index %>'">
-                                    <td><%= write.title %></td>
-                                    <td><%= write.username %></td>
+                                <tr class="write" onclick="location.href='/board/show?page=<%= write.index %>'">
+                                    <% if (write.title.length > 5) { %>
+                                        <td><%= write.title.substring(0, 5) + '...' %></td>
+                                    <% } else { %>
+                                        <td><%= write.title %></td>
+                                    <% } %>
+                                    <% if (write.username.length > 5) { %>
+                                        <td><%= write.username.substring(0, 5) + '...' %></td>
+                                    <% } else { %>
+                                        <td><%= write.username %></td>
+                                    <% } %>
                                     <td><%= write.date %></td>
                                     <td><%= write.view %></td>
                                     <td><%= write.good %></td>
@@ -40,9 +48,17 @@
                                 </tr>
                             <% } else { %>
                                 <% if (write.username === user.username) { %>
-                                    <tr onclick="location.href='/board/show?page=<%= write.index %>'">
-                                        <td><%= write.title %></td>
-                                        <td><%= write.username %></td>
+                                    <tr class="write" onclick="location.href='/board/show?page=<%= write.index %>'">
+                                        <% if (write.title.length > 5) { %>
+                                            <td><%= write.title.substring(0, 5) + '...' %></td>
+                                        <% } else { %>
+                                            <td><%= write.title %></td>
+                                        <% } %>
+                                        <% if (write.username.length > 5) { %>
+                                            <td><%= write.username.substring(0, 5) + '...' %></td>
+                                        <% } else { %>
+                                            <td><%= write.username %></td>
+                                        <% } %>
                                         <td><%= write.date %></td>
                                         <td><%= write.view %></td>
                                         <td><%= write.good %></td>
@@ -55,7 +71,11 @@
                                 <% } else { %>
                                     <tr>
                                         <td></td>
-                                        <td><%= write.username %></td>
+                                        <% if (write.username.length > 5) { %>
+                                            <td><%= write.username.substring(0, 5) + '...' %></td>
+                                        <% } else { %>
+                                            <td><%= write.username %></td>
+                                        <% } %>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -65,9 +85,17 @@
                                 <% } %>
                             <% } %>
                         <% } else { %>
-                            <tr onclick="location.href='/board/show?page=<%= write.index %>'">
-                                <td><%= write.title %></td>
-                                <td><%= write.username %></td>
+                            <tr class="write" onclick="location.href='/board/show?page=<%= write.index %>'">
+                                <% if (write.title.length > 5) { %>
+                                    <td><%= write.title.substring(0, 5) + '...' %></td>
+                                <% } else { %>
+                                    <td><%= write.title %></td>
+                                <% } %>
+                                <% if (write.username.length > 5) { %>
+                                    <td><%= write.username.substring(0, 5) + '...' %></td>
+                                <% } else { %>
+                                    <td><%= write.username %></td>
+                                <% } %>
                                 <td><%= write.date %></td>
                                 <td><%= write.view %></td>
                                 <td><%= write.good %></td>
