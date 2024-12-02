@@ -40,6 +40,7 @@ router.post('/write', upload.single('file'), async (req, res) => {
         }
     } catch (e) {
         console.log('/write error : ' + e);
+        res.render(400);
     }
     
 });
