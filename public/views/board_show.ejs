@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="/public/css/board_show.css">
     </head>
     <body>
-        <button><a href="/board?page_index=1">board</a></button>
+        <button><a href="/board/?page_index=1">board</a></button>
         <hr>
         <table>
             <tr>
@@ -95,7 +95,7 @@
                     </div>
                     <div style="margin-left: <%= comment.depth * 30 %>px;">
                         <button class="reply_btn">reply</button>
-                        <% if (comment.username === username) { %>
+                        <% if (comment.username === username || role === 1) { %>
                             <button class="comment_edit_btn">edit</button>
                             <button class="comment_delete_btn" value="<%= comment.com_index %>">delete</button>
                         <% } %>
@@ -111,15 +111,39 @@
                     </div>
                     <br>
                 <% } else { %>
-                    <div style="margin-left: <%= comment.depth * 30 %>px;">
-                        <div>
-                            <span><%= comment.username %></span>
-                            <span><%= comment.date %></span>
-                        </div>
-                        <div>
-                            <span>secret</span>
-                        </div>
-                    </div>
+                        <% if (comment.secret === 1) { %>
+                            <div style="margin-left: <%= comment.depth * 30 %>px;">
+                                <span><%= comment.username %></span>
+                                <span><%= comment.date %></span>
+                            </div>
+                            <div class="comment_content" style="margin-left: <%= comment.depth * 30 %>px;">
+                                <span>secret</span>
+                            </div>
+                            <br>
+                        <% } else { %>
+                            <div style="margin-left: <%= comment.depth * 30 %>px;">
+                                <span><%= comment.username %></span>
+                                <span><%= comment.date %></span>
+                            </div>
+                            <div class="comment_content" style="margin-left: <%= comment.depth * 30 %>px;">
+                                <span><%= comment.content %></span>
+                                <% if (comment.edit === 1) { %>
+                                    <span>(edited)</span>
+                                <% } %>
+                            </div>
+                            <div style="margin-left: <%= comment.depth * 30 %>px;">
+                                <button class="reply_btn">reply</button>
+                            </div>
+                            <div class="reply_div" style="margin-left: <%= comment.depth * 30 %>px;">
+                                <form method="POST" action="/board/show/reply" class="reply_toggle reply_form" id="reply_form">
+                                    <textarea name="reply"></textarea>
+                                    <input type="checkbox" name="secret" value="secret"/>secret
+                                    <input type="hidden" name="page" value="<%= write[0].index %>"/>
+                                    <input type="hidden" name="parent_index" value="<%= comment.com_index %>"/>
+                                    <button type="submit">reply</button>
+                                </form>
+                            </div>
+                        <% } %>
                 <% } %>
             <% }); %>
         </div>
