@@ -9,11 +9,13 @@ const board_modify_controllers = require('../controllers/board.controllers/board
 const board_delete_controllers = require('../controllers/board.controllers/board_delete.controllers.js');
 const board_comment_controllers = require('../controllers/board.controllers/board_comment.controllers.js');
 
-router.use('/board', board_index_controllers);
-router.use('/board', board_write_controllers);
-router.use('/board', board_show_controllers);
-router.use('/board', board_modify_controllers);
-router.use('/board', board_delete_controllers);
-router.use('/board', board_comment_controllers);
+const auth = require('../middlewares/auth.middleware.js');
+
+router.use('/board', auth, board_index_controllers);
+router.use('/board', auth, board_write_controllers);
+router.use('/board', auth, board_show_controllers);
+router.use('/board', auth, board_modify_controllers);
+router.use('/board', auth, board_delete_controllers);
+router.use('/board', auth, board_comment_controllers);
 
 module.exports = router;
