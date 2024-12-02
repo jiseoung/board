@@ -17,7 +17,7 @@ write_delete_btn.addEventListener('click', () => {
                 console.log(response.status);
             }
             alert('delete complete');
-            location.href = "/board/";
+            location.href = "/board/?page_index=1";
         })
         .catch(e => {
             console.error("withdraw_user fetch error : " + e);
