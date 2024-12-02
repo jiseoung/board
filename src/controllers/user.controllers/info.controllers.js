@@ -36,6 +36,7 @@ router.delete('/info/withdraw_user', async (req, res) => {
         }
     } catch (e) {
         console.log('/info/withdraw_user error : ' + e);
+        res.render(400);
     }
 })
 

@@ -30,6 +30,7 @@ router.post('/login', async (req, res) => {
         
     } catch (e) {
         console.log('/login error : ' + e);
+        res.render(400);
     }
 })
 
