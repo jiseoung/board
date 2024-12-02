@@ -15,15 +15,28 @@ router.get('/register', (req, res) => {
 
 router.post('/register', async (req, res) => {
     var { id, pw, username, email } = req.body;
+
+    try {
+        var result = await user_register(id, pw, username, email);
     
-    var result = await user_register(id, pw, username, email);
-    
-    if (result) {
-        res.send('<script>alert("register success");location.href = "/"</script>');
+        if (result === 'pw_and_email_not_match') {
+            res.send('<script>alert("pw and email format mismatch"); location.href="/user/register"</script>');
+        }
+        else if (result === 'pw_not_match') {
+            res.send('<script>alert("pw format mismatch"); location.href="/user/register"</script>')
+        }
+        else if (result === 'email_not_match') {
+            res.send('<script>alert("email format mismatch"); location.href="/user/register"</script>')
+        }
+        else {
+            res.send('<script>alert("register success");location.href = "/"</script>');
+        }
+
+    } catch (e) {
+        console.log('/register post error : ' + e);
+        res.render('400');
     }
-    else {
-        res.send('<script>alert("register failed");</script>');
-    }
+
 });
 
 module.exports = router;
