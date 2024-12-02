@@ -3,6 +3,18 @@ const hash = require('../../middlewares/hash.middleware.js');
 
 const user_register = async (id, pw, username, email) => {
     const connection = await pool.getConnection(async conn => conn);
+    const pw_reg = /^(?=.*[a-zA-Z])(?=.*[!@$%^*?])(?=.*[0-9]).{8,15}$/;
+    const email_reg = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    
+    if (!(pw_reg.test(pw)) && !(email_reg.test(email))) {
+        return 'pw_and_email_not_match';
+    }
+    else if (!(pw_reg.test(pw))) {
+        return 'pw_not_match';
+    }
+    else if (!(email_reg.test(email))) {
+        return 'email_not_match';
+    }
 
     try {
         const hashed_pw = await hash.create_hash(pw);
