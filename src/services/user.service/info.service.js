@@ -31,6 +31,19 @@ exports.withdraw_user = async (username) => {
             [username]
         );
 
+        const [delete_user] = await connection.execute(
+            'SELECT com_index FROM comment WHERE username = ?',
+            [username]
+        )
+
+        var i = 0;
+        while (delete_user[i]) {
+            await connection.execute(
+                'DELETE FROM comment WHERE parent_index = ?',
+                [delete_user[i].com_index]
+            )
+            i++;
+        }
         await connection.execute(
             'DELETE FROM comment WHERE username = ?',
             [username]
