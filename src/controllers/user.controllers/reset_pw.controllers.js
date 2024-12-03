@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.set('views', path.join(__dirname + '/public/views'));
 
 router.get('/reset_pw', (req, res) => {
-    res.render('reset_pw');
+    return res.render('reset_pw');
 })
 
 router.post('/reset_pw', async (req, res) => {
@@ -20,10 +20,10 @@ router.post('/reset_pw', async (req, res) => {
     const result = await user_pw.reset_pw(id, username, email);
 
     if (result === 'error') {
-        res.send('<script>alert("ID, username and email do not match");location.href="/user/reset_pw";</script>');
+        return res.send('<script>alert("ID, username and email do not match");location.href="/user/reset_pw";</script>');
     }
     else if (result === 'reset_complete') {
-        res.clearCookie('jwt_token').send('<script>alert("Password reset email has been sent. Login Again");location.href="/user/login";</script>');
+        return res.clearCookie('jwt_token').send('<script>alert("Password reset email has been sent. Login Again");location.href="/user/login";</script>');
     }
 })
 
