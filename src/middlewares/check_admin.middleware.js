@@ -4,7 +4,7 @@ const check_admin = async (req, res, next) => {
     const jwt_token = req.cookies.jwt_token;
     
     if (!jwt_token) {
-        res.render('403');
+        res.status(403).render('403');
     }
 
     const role = await jwt.verify_jwt(jwt_token).role;
@@ -13,7 +13,7 @@ const check_admin = async (req, res, next) => {
         next();
     }
     else {
-        res.render('403');
+        res.status(403).render('403');
     }
 }
 
