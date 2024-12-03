@@ -6,10 +6,10 @@ exports.reset_pw = async (id, username, mail_to_send) => {
     const connection = await pool.getConnection(async conn => conn);
 
     const [is_same] = await connection.execute(
-        'SELECT * FROM users WHERE id = ? AND email = ?',
-        [id, username]
+        'SELECT * FROM users WHERE id = ? AND username = ? AND email = ?',
+        [id, username, mail_to_send]
     )
-    
+    console.log(is_same[0]);
     if (!is_same[0]) {
         return 'error';
     }
