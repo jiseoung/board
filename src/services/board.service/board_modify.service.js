@@ -4,12 +4,12 @@ exports.get_write = async (page) => {
     const connection = await pool.getConnection(async conn => conn);
 
     try {
-        const [write] = await connection.execute(
-            'SELECT * FROM board WHERE `index` = ?',
-            [page]
-        )
+            const [write] = await connection.execute(
+                'SELECT * FROM board WHERE `index` = ?',
+                [page]
+            )
 
-        return write;
+            return write;
     } catch (e) {
         console.log('board modify error : ' + e);
     } finally {
@@ -17,14 +17,27 @@ exports.get_write = async (page) => {
     }
 }
 
-exports.modify = async (page, title, content, file_name, secret) => {
+exports.modify = async (jwt_username, role, page, title, content, file_name, secret) => {
     const connection = await pool.getConnection(async conn => conn);
 
     try {
-        await connection.execute(
-            'UPDATE board set title = ?, content = ?, file_name = ?, date = NOW(), secret = ?, modify = ? WHERE `index` = ?',
-            [title, content, file_name, secret, 1, page]
-        );
+        const [[{ 'username': write_username }]] = await connection.execute(
+            'SELECT username FROM board WHERE `index` = ?',
+            [page]
+        )
+
+        if (jwt_username === write_username || role === 1) {
+            await connection.execute(
+                'UPDATE board set title = ?, content = ?, file_name = ?, date = NOW(), secret = ?, modify = ? WHERE `index` = ?',
+                [title, content, file_name, secret, 1, page]
+            );
+
+            return 'succeed';
+        }
+        else {
+            return 'fail';
+        }
+
     } catch (e) {
         console.log('board modify error : ' + e);
     } finally {
