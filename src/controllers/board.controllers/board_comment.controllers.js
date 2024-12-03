@@ -50,14 +50,15 @@ router.post('/show/comment/edit', async (req, res) => {
         const result = await board_comment.edit_comment(username, role, com_index, comment_edit, secret_check);
 
         if (result === 'fail') {
-            res.send('<script>alert("you cant edit"); location.href="/board/show?page=' + page + '"</script>');
+            res.status(400).send('<script>alert("you cant edit"); location.href="/board/show?page=' + page + '"</script>');
+        }
+        else if (result === 'succeed') {
+            res.status(200).send('<script>location.href="/board/show?page=' + page + '"</script>');
         }
     } catch (e) {
         console.log('/show/comment error : ' + e);
         return res.status(400).render(400);
     }
-
-    res.send('<script>location.href="/board/show?page=' + page + '"</script>');
 })
 
 router.delete('/show/comment', async (req, res) => {
@@ -68,7 +69,7 @@ router.delete('/show/comment', async (req, res) => {
         const result = await board_comment.delete_comment(username, role, com_index);
 
         if(result === 'fail') {
-            res.status(400).send('400 Bad Request');
+            res.status(400).send('Bad Request');
         }
         else if (result === 'succeed') {
             res.status(200).send('ok');
