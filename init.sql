@@ -1,14 +1,20 @@
-DROP DATABASE IF EXISTS 'board_db';
+DROP USER IF EXISTS 'root'@'%';
 
-CREATE DATABASE 'board_db';
+CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
 
-USE 'board_db';
+DROP DATABASE IF EXISTS `board_db`;
 
-DROP TABLE IF EXISTS 'users';
-DROP TABLE IF EXISTS 'board';
-DROP TABLE IF EXISTS 'manage_view';
-DROP TABLE IF EXISTS 'good_bad';
-DROP TABLE IF EXISTS 'comment';
+CREATE DATABASE `board_db`;
+
+USE `board_db`;
+
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `board`;
+DROP TABLE IF EXISTS `manage_view`;
+DROP TABLE IF EXISTS `good_bad`;
+DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `users` (
 	`id` varchar(255) NOT NULL primary key,
