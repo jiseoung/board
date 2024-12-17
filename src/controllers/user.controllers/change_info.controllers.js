@@ -28,9 +28,17 @@ router.post('/info/change/change_info', async (req, res) => {
     const before_username = await jwt.verify_jwt(jwt_token).username;
     const { id, username, email } = req.body;
 
-    await change_user.change_info(id, username, email, before_username);
+    const result = await change_user.change_info(id, username, email, before_username);
 
-    res.send('<script>alert("change complete. Login Again");location.href="/user/login";</script>');
+    if (result === 'duplicate_id') {
+        res.send('<script>alert("duplicate ID");location.href="/user/info/change/change_info";</script>');
+    }
+    else if (result === 'duplicate_username') {
+        res.send('<script>alert("duplicate USERNAME");location.href="/user/info/change/change_info";</script>');
+    }
+    else {
+        res.send('<script>alert("change complete. Login Again");location.href="/user/login";</script>');
+    }
 })
 
 module.exports = router;
