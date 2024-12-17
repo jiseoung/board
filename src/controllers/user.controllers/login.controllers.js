@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
             res.send('<script>alert("login success"); location.href="/";</script>');
         }
         else {
-            res.send('<script>alert("login failed");</script>');
+            res.send('<script>alert("login failed"); location.href="/user/login";</script>');
         }
         
     } catch (e) {
