@@ -11,8 +11,8 @@ exports.change_info = async (id, username, email, before_username) => {
         [id, before_username]
     )
     const [duplicate_username] = await connection.execute(
-        'SELECT username FROM users WHERE username = ?',
-        [username]
+        'SELECT username FROM users WHERE username = ? AND username != ?',
+        [username, before_username]
     )
 
     if (duplicate_id.length > 0) {
