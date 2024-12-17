@@ -16,6 +16,22 @@ const user_register = async (id, pw, username, email) => {
         return 'email_not_match';
     }
 
+    const [duplicate_id] = await connection.execute(
+        'SELECT id FROM users WHERE id = ?',
+        [id]
+    )
+    const [duplicate_username] = await connection.execute(
+        'SELECT username FROM users WHERE username = ?',
+        [username]
+    )
+
+    if (duplicate_id.length > 0) {
+        return 'duplicate_id';
+    }
+    else if (duplicate_username.length > 0) {
+        return 'duplicate_username';
+    }
+    
     try {
         const hashed_pw = await hash.create_hash(pw);
 
