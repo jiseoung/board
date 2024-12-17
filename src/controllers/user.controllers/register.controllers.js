@@ -28,6 +28,12 @@ router.post('/register', async (req, res) => {
         else if (result === 'email_not_match') {
             res.send('<script>alert("email format mismatch"); location.href="/user/register"</script>')
         }
+        else if (result === 'duplicate_id') {
+            res.send('<script>alert("duplicate ID"); location.href="/user/register"</script>')
+        }
+        else if (result === 'duplicate_username') {
+            res.send('<script>alert("duplicate USERNAME"); location.href="/user/register"</script>')
+        }
         else {
             res.send('<script>alert("register success");location.href = "/"</script>');
         }
