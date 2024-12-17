@@ -6,6 +6,22 @@ const match_pw = require('../../middlewares/match_pw.middleware.js');
 exports.change_info = async (id, username, email, before_username) => {
     const connection = await pool.getConnection(async conn => conn);
 
+    const [duplicate_id] = await connection.execute(
+        'SELECT id FROM users WHERE id = ? AND username != ?',
+        [id, before_username]
+    )
+    const [duplicate_username] = await connection.execute(
+        'SELECT username FROM users WHERE username = ?',
+        [username]
+    )
+
+    if (duplicate_id.length > 0) {
+        return 'duplicate_id';
+    }
+    else if (duplicate_username.length > 0) {
+        return 'duplicate_username';
+    }
+
     try {
         await connection.execute(
             'UPDATE users SET id = ?, username = ?, email = ? WHERE username = ?',
@@ -31,6 +47,8 @@ exports.change_info = async (id, username, email, before_username) => {
             'UPDATE manage_view SET username = ? WHERE username = ?',
             [username, before_username]
         );
+
+        return 'succeed';
     } catch (e) {
         console.log('change_info error : ' + e);
     } finally {
